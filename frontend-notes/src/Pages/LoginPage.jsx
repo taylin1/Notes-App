@@ -1,6 +1,11 @@
 import React from "react";
+import { useState } from "react";
 
 function LoginPage() {
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
   return (
     <div>
       <div className="bg-slate-900 h-screen flex justify-center items-center">
