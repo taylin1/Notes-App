@@ -40,6 +40,40 @@ function Dashboard() {
             </li>
           </ul>
         </aside>
+          
+
+        {/* EDITOR */}
+        <div className="flex-1 bg-slate-900 p-6">
+          <div className="bg-slate-800 rounded-xl h-full flex flex-col">
+
+            {/* Title Bar */}
+            <div className="border-b border-slate-700 px-4 py-3">
+              <input
+                type="text"
+                placeholder="Note title…"
+                className="w-full bg-transparent text-white text-xl font-semibold focus:outline-none"
+              />
+            </div>
+
+            {/* Text Area */}
+            <textarea
+              placeholder="Start writing your note here..."
+              className="flex-1 bg-transparent text-white p-4 resize-none focus:outline-none"
+            ></textarea>
+
+            {/* Bottom Action*/}
+            <div className="border-t border-slate-700 px-4 py-3 flex justify-end gap-3">
+              <button className="bg-red-600 px-4 py-2 rounded-xl hover:bg-red-700">
+                Delete
+              </button>
+              <button className="bg-indigo-600 px-4 py-2 rounded-xl hover:bg-indigo-700">
+                Save
+              </button>
+            </div>
+
+          </div>
+        </div>
+
         </div>
       </div>
   </>
