@@ -21,7 +21,7 @@ function LoginPage() {
           <div className=" space-x-8 mb-4">
           <label className="text-white ">Email:</label>
           <input
-            type="email"
+            type="text"
             placeholder="Please enter email"
             className="input bg-gray-200 rounded-xl py-2 "
             value=""
@@ -39,7 +39,7 @@ function LoginPage() {
           </div>
           <p className="mt-8 text-white">Dont have an account sign up now: </p>
           <div className="">
-            <button className="bg-indigo-800 rounded-xl text-white p-2 space-x-4">Sign up</button>
+            <button className="bg-indigo-800 rounded-xl text-white p-2 space-x-4 cursor-pointer">Sign up</button>
           </div>
         </form>
       </div>

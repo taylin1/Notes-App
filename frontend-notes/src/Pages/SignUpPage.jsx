@@ -33,7 +33,7 @@ function SignUpPage() {
           />
           </div>
           <div className=''>
-            <button className="bg-indigo-800 rounded-xl text-white p-2 space-x-4">Sign up</button>
+            <button className="bg-indigo-800 rounded-xl text-white p-2 space-x-4 cursor-pointer">Sign up</button>
           </div>
         </form>
       </div>
