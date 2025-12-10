@@ -58,8 +58,8 @@ function Dashboard() {
             {/* Text Area */}
             <textarea
               placeholder="Start writing your note here..."
-              className="flex-1 bg-transparent text-white p-4 resize-none focus:outline-none"
-            ></textarea>
+              className="flex-1 bg-transparent text-white p-4 resize-none focus:outline-none">
+            </textarea>
 
             {/* Bottom Action*/}
             <div className="border-t border-slate-700 px-4 py-3 flex justify-end gap-3">
