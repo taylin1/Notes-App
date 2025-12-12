@@ -15,16 +15,18 @@ function LoginPage() {
             Noti Application
         </h1>
 
-        <form className="bg-gray-800 w-100 rounded-lg p-6 ">
+        <form className="bg-gray-800 w-100 rounded-lg p-6 flex flex-col justify-center  ">
           <h1 className="text-2xl text-white font-bold text-center mb-4">Login:</h1>
           
           <div className=" space-x-8 mb-4">
           <label className="text-white ">Email:</label>
           <input
-            type="text"
+            type="email"
             placeholder="Please enter email"
             className="input bg-gray-200 rounded-xl py-2 "
-            value=""
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            
           />
           </div>
 
@@ -34,8 +36,14 @@ function LoginPage() {
             type="password"
             placeholder="Please enter password"
             className="input bg-gray-200 rounded-xl py-2"
-            value=""
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+
           />
+          </div>
+
+          <div>
+            <button className="bg-indigo-400 rounded-xl p-2 mt-4 text-white cursor-pointer">Login</button>
           </div>
           <p className="mt-8 text-white">Dont have an account sign up now: </p>
           <div className="">
