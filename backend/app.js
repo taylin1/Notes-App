@@ -12,12 +12,6 @@ app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
-// Route files
-const authRoutes = require("./routes/authRoutes");
-const noteRoutes = require("./routes/noteRoutes");
 
-// Use routes
-app.use("/api/auth", authRoutes);
-app.use("/api/notes", noteRoutes);
 
 module.exports = app;
