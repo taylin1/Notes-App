@@ -1,10 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { loginUser } from "../services/authService";
 
 function LoginPage() {
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const data = await loginUser(email, password);
+      console.log("Logged in user:", data);
+
+     
+      // store user in localStorage
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // redirect to dashboard
+      window.location.href = "/dashboard";
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div>
