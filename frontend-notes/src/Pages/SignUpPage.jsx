@@ -1,45 +1,88 @@
-import React from 'react'
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { signupUser } from "../services/authServices";
 
-function SignUpPage() {
+function SignupPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      // create user in database (Supabase Auth)
+      await signupUser(email, password);
+
+      // after signup → go back to login
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
-    <div>
-      <div className="bg-slate-900 h-screen flex justify-center items-center">
-        <div className="flex flex-col items-center">
-
+    <div className="bg-slate-900 h-screen flex justify-center items-center">
+      <div className="flex flex-col items-center">
         <h1 className="text-white mb-4 font-bold text-xl">
-            Noti Application
+          Noti Application
         </h1>
 
-        <form className="bg-gray-800 w-100 rounded-lg p-6 ">
-          <h1 className="text-2xl text-white font-bold text-center mb-4">Sign Up:</h1>
-          
-          <div className=" space-x-8 mb-4">
-          <label className="text-white ">Create an Email:</label>
+        <form
+          onSubmit={handleSignup}
+          className="bg-gray-800 w-80 rounded-lg p-6 flex flex-col"
+        >
+          <h2 className="text-2xl text-white font-bold text-center mb-4">
+            Sign Up
+          </h2>
+
+          {error && (
+            <p className="text-red-400 text-sm mb-3 text-center">
+              {error}
+            </p>
+          )}
+
+          <label className="text-white mb-1">Email</label>
           <input
             type="email"
-            placeholder="Please enter email"
-            className="input bg-gray-200 rounded-xl py-2 "
-            value=""
+            className="bg-gray-200 rounded-lg p-2 mb-4"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          </div>
 
-          <div className=" space-x-5">
-          <label className="text-white">Create a Password:</label>
+          <label className="text-white mb-1">Password</label>
           <input
             type="password"
-            placeholder="Please enter password"
-            className="input bg-gray-200 rounded-xl py-2"
-            value=""
+            className="bg-gray-200 rounded-lg p-2 mb-4"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          </div>
-          <div className=''>
-            <button className="bg-indigo-800 rounded-xl text-white p-2 space-x-4 cursor-pointer">Sign up</button>
-          </div>
+
+          <button
+            type="submit"
+            className="bg-indigo-500 hover:bg-indigo-600 rounded-lg p-2 text-white font-semibold"
+          >
+            Sign Up
+          </button>
+
+          <p className="mt-6 text-white text-sm text-center">
+            Already have an account?
+          </p>
+
+          <Link
+            to="/"
+            className="mt-2 bg-indigo-800 rounded-lg text-white p-2 text-center"
+          >
+            Login
+          </Link>
         </form>
       </div>
-      </div>
     </div>
-  )
+  );
 }
 
-export default SignUpPage
+export default SignupPage;

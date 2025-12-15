@@ -1,83 +1,56 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 
-function Dashboard() {
+export default function Dashboard() {
+  const [notes, setNotes] = useState([]);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/notes")
+      .then((res) => res.json())
+      .then((data) => setNotes(data));
+  }, []);
+
+  const handleAddNote = async () => {
+    if (!text.trim()) return;
+
+    const res = await fetch("http://localhost:5000/api/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ content: text })
+    });
+
+    const newNote = await res.json();
+    setNotes([...notes, newNote[0]]);
+    setText("");
+  };
+
   return (
-  <>
-<div className="h-screen flex flex-col bg-slate-900 text-white">
+    <div className="p-6">
+      <h1 className="text-2xl mb-4">My Notes</h1>
 
-      {/* HEADER */}
-      <header className="w-full bg-slate-800 px-6 py-4 flex items-center justify-between shadow-lg">
-        <h1 className="text-2xl font-bold">Noti Dashboard</h1>
+      <textarea
+        className="border w-full p-2 mb-3"
+        placeholder="Write your note..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
 
-        <div className="flex items-center gap-4 w-1/2">
-          <input
-            type="text"
-            placeholder="Search notes..."
-            className="w-full bg-slate-700 text-white rounded-xl px-3 py-2 focus:outline-none"
-          />
-          
-          <button className="bg-indigo-600 px-4 py-2 rounded-xl hover:bg-indigo-700 transition">
-            New Note
-          </button>
-       </div>
-      </header>
+      <button
+        onClick={handleAddNote}
+        className="bg-indigo-600 text-white p-2 rounded"
+      >
+        Add Note
+      </button>
 
-       {/* MAIN CONTENT LAYOUT */}
-      <div className="flex flex-1 ">
-
-        {/* SIDEBAR */}
-        <aside className="hidden md:block w-60 bg-slate-800 border-r border-slate-700 p-4">
-          <h2 className="text-lg font-semibold mb-4">Categories</h2>
-          <ul className="space-y-3 text-sm">
-            <li className="cursor-pointer hover:bg-slate-700 p-2 rounded-lg">
-              All Notes
-            </li>
-            <li className="cursor-pointer hover:bg-slate-700 p-2 rounded-lg">
-              Personal
-            </li>
-            <li className="cursor-pointer hover:bg-slate-700 p-2 rounded-lg">
-              Work
-            </li>
-          </ul>
-        </aside>
-          
-
-        {/* EDITOR */}
-        <div className="flex-1 bg-slate-900 p-6">
-          <div className="bg-slate-800 rounded-xl h-full flex flex-col">
-
-            {/* Title Bar */}
-            <div className="border-b border-slate-700 px-4 py-3">
-              <input
-                type="text"
-                placeholder="Note title…"
-                className="w-full bg-transparent text-white text-xl font-semibold focus:outline-none"
-              />
-            </div>
-
-            {/* Text Area */}
-            <textarea
-              placeholder="Start writing your note here..."
-              className="flex-1 bg-transparent text-white p-4 resize-none focus:outline-none">
-            </textarea>
-
-            {/* Bottom Action*/}
-            <div className="border-t border-slate-700 px-4 py-3 flex justify-end gap-3">
-              <button className="bg-red-600 px-4 py-2 rounded-xl hover:bg-red-700">
-                Delete
-              </button>
-              <button className="bg-indigo-600 px-4 py-2 rounded-xl hover:bg-indigo-700">
-                Save
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        </div>
-      </div>
-  </>
-  )
+      <ul className="mt-6">
+        {notes.map((note) => (
+          <li key={note.id} className="border p-3 mb-2 rounded">
+            {note.content}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
-
-export default Dashboard

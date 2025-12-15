@@ -1,9 +1,39 @@
-export async function loginUser(email, password) {
-  const res = await fetch("http://localhost:5000/api/auth/login", {
+const API_URL = "http://localhost:5000/api/auth";
+
+//Api functions
+export async function signupUser(email, password) {
+  const res = await fetch(`${API_URL}/signup`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ email, password })
   });
 
-  return res.json();
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Signup failed");
+  }
+
+  return data;
 }
+
+export async function loginUser(email, password) {
+  const res = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Login failed");
+  }
+
+  return data;
+}
+
