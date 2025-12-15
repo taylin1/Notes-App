@@ -1,24 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const supabase = require("../supabase/supabaseClient");
+const { supabase, supabaseAdmin } = require("../supabase/supabaseClient");
 
-//Signup route
+//SIGNUP ADMIN CLIENT
 router.post("/signup", async (req, res) => {
   const { email, password } = req.body;
 
-  const { data, error } = await supabase.auth.admin.createUser({
+  const { data, error } = await supabaseAdmin.auth.admin.createUser({
     email,
     password
   });
 
-  if (error) return res.status(400).json({ error: error.message });
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
 
   res.json({ user: data.user });
 });
 
-
-
-// LOGIN ROUTE
+// LOGIN PUBLIC CLIENT
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -35,3 +35,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
