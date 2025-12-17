@@ -27,11 +27,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl mb-4">My Notes</h1>
+    <div className="p-6 bg-slate-800 h-screen">
+      <h1 className="text-2xl mb-4 font-bold text-white">My Notes</h1>
 
       <textarea
-        className="border w-full p-2 mb-3"
+        className="border w-full h-120 bg-gray-600 p-2 mb-3"
         placeholder="Write your note..."
         value={text}
         onChange={(e) => setText(e.target.value)}

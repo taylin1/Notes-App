@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const supabase = require("../supabase/supabaseClient");
+const supabase = require("../supabase/supabaseAdmin");
 
 router.get("/", async (req, res) => {
   const { data, error } = await supabase.from("notes").select("*");
