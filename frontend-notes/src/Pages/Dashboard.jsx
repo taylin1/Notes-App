@@ -1,56 +1,82 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function Dashboard() {
+function Dashboard() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [notes, setNotes] = useState([]);
-  const [text, setText] = useState("");
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/notes")
-      .then((res) => res.json())
-      .then((data) => setNotes(data));
-  }, []);
+  const [error, setError] = useState("");
 
   const handleAddNote = async () => {
-    if (!text.trim()) return;
+    if (!title || !content) {
+      setError("Please fill in both fields");
+      return;
+    }
 
-    const res = await fetch("http://localhost:5000/api/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ content: text })
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, content }),
+      });
 
-    const newNote = await res.json();
-    setNotes([...notes, newNote[0]]);
-    setText("");
+      const data = await response.json();
+
+      
+      setNotes((prev) => [...prev, { title, content }]);
+      setTitle("");
+      setContent("");
+      setError("");
+
+    } catch (err) {
+      setError("Failed to add note");
+    }
   };
 
   return (
-    <div className="p-6 bg-slate-800 h-screen">
-      <h1 className="text-2xl mb-4 font-bold text-white">My Notes</h1>
+    <div className="bg-slate-900 h-screen p-6 text-white">
+      <h1 className="text-2xl font-bold mb-4">Noti Dashboard</h1>
 
-      <textarea
-        className="border w-full h-120 bg-gray-600 p-2 mb-3"
-        placeholder="Write your note..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
+      <div className="mb-4">
+        <input
+          className="w-full p-2 mb-2 font-bold text-white"
+          placeholder="Note title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-      <button
-        onClick={handleAddNote}
-        className="bg-indigo-600 text-white p-2 rounded"
-      >
-        Add Note
-      </button>
+        <textarea
+          className="w-full p-2 border border-white text-white"
+          placeholder="Write your note..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
 
-      <ul className="mt-6">
-        {notes.map((note) => (
-          <li key={note.id} className="border p-3 mb-2 rounded">
-            {note.content}
-          </li>
+        <button
+          onClick={handleAddNote}
+          className="mt-2 bg-indigo-600 px-4 py-2 rounded"
+        >
+          Add Note
+        </button>
+
+        {error && <p className="text-red-400 mt-2">{error}</p>}
+      </div>
+
+      <div>
+        <h2 className="text-xl mb-2 mt-10">My Notes</h2>
+
+        {notes.length === 0 && <p>No notes yet</p>}
+
+        {notes.map((note, index) => (
+          <div key={index} className="bg-slate-800 p-3 mb-2 rounded">
+            <h3 className="font-bold">{note.title}</h3>
+            <p>{note.content}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
+
+export default Dashboard;
