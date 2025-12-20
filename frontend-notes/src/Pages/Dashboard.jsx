@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 function Dashboard() {
+  
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notes, setNotes] = useState([]);
@@ -21,7 +22,7 @@ function Dashboard() {
         body: JSON.stringify({ title, content }),
       });
 
-      const data = await response.json();
+       await response.json();
 
       
       setNotes((prev) => [...prev, { title, content }]);
@@ -30,7 +31,7 @@ function Dashboard() {
       setError("");
 
     } catch (err) {
-      setError("Failed to add note");
+      setError("Failed to add note:"+ err);
     }
   };
 
