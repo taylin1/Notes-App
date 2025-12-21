@@ -7,12 +7,14 @@ function Dashboard() {
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState("");
 
+  // Add notes to the dashboard
   const handleAddNote = async () => {
     if (!title || !content) {
       setError("Please fill in both fields");
       return;
     }
 
+    // API to fetch notes
     try {
       const response = await fetch("http://localhost:5000/api/notes", {
         method: "POST",
@@ -29,7 +31,8 @@ function Dashboard() {
       setTitle("");
       setContent("");
       setError("");
-
+      
+   // Catch any errors if there is
     } catch (err) {
       setError("Failed to add note:"+ err);
     }
