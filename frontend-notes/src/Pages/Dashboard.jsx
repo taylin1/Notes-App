@@ -8,6 +8,7 @@ function Dashboard() {
   const [error, setError] = useState("");
 
   // Add notes to the dashboard
+  
   const handleAddNote = async () => {
     if (!title || !content) {
       setError("Please fill in both fields");
