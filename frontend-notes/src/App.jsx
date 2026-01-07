@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
 import Dashboard from './pages/Dashboard'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+
 function App() {
   
 
