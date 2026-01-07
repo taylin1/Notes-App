@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 function Dashboard() {
-  
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState("");
 
   // Add notes to the dashboard
-  
+
   const handleAddNote = async () => {
     if (!title || !content) {
       setError("Please fill in both fields");
@@ -25,17 +24,28 @@ function Dashboard() {
         body: JSON.stringify({ title, content }),
       });
 
-       await response.json();
+      await response.json();
 
-      
-      setNotes((prev) => [...prev, { title, content }]);
+      setNotes((previousNotes) => {
+        return [
+          ...previousNotes,
+          {
+            title: title,
+            content: content,
+          },
+        ];
+      });
+
+      // Reset input fields after the note has been added
       setTitle("");
       setContent("");
+
+      // Clear any existing error messages
       setError("");
-      
-   // Catch any errors if there is
+
+      // Catch any errors if there is
     } catch (err) {
-      setError("Failed to add note:"+ err);
+      setError("Failed to add note:" + err);
     }
   };
 
