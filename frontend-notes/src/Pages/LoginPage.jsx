@@ -26,6 +26,8 @@ function LoginPage() {
   };
 
   return (
+    
+    //Noti Login Page 
     <div className="bg-slate-900 h-screen flex justify-center items-center">
       <div className="flex flex-col items-center">
         <h1 className="text-white mb-4 font-bold text-xl">
