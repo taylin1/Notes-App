@@ -50,19 +50,21 @@ function Dashboard() {
   };
 
   return (
+    //Dashboard
+  
     <div className="bg-slate-900 h-screen p-6 text-white">
       <h1 className="text-2xl font-bold mb-4">Noti Dashboard</h1>
 
       <div className="mb-4">
         <input
-          className="w-full p-2 mb-2 font-bold text-white"
+          className="w-full p-2 mb-2 font-bold text-white text-xl"
           placeholder="Note title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
         <textarea
-          className="w-full p-2 border border-white text-white"
+          className="w-full p-2 border border-white text-white h-80 bg-gray-800"
           placeholder="Write your note..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -89,7 +91,9 @@ function Dashboard() {
             <p>{note.content}</p>
           </div>
         ))}
+
       </div>
+      
     </div>
   );
 }
