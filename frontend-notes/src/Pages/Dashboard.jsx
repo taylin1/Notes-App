@@ -1,5 +1,5 @@
 import { useState } from "react";
-import API_URL from "../services/api.js"
+import API_URL from "../services/api.js";
 
 function Dashboard() {
   const [title, setTitle] = useState("");
