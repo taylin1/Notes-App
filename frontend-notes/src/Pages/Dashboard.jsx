@@ -31,7 +31,13 @@ function Dashboard() {
 
     await response.json();
 
-    setNotes((prev) => [...prev, { title, content }]);
+    setNotes((prev) => [
+  ...prev,
+  { 
+    title: title || "",    // fallback to empty string
+    content: content || "" // fallback to empty string
+  }
+]);
 
     setTitle("");
     setContent("");
