@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../services/api.js"
 
 function Dashboard() {
   const [title, setTitle] = useState("");
@@ -16,7 +17,7 @@ function Dashboard() {
 
     // API to fetch notes
     try {
-      const response = await fetch("http://localhost:5000/api/notes", {
+      const response = await fetch(`${API_URL}/api/notes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

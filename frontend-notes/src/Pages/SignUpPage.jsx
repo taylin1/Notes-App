@@ -16,7 +16,7 @@ function SignupPage() {
       // create user in database (Supabase Auth)
       await signupUser(email, password);
 
-      // after signup → go back to login
+      // after signup go back to login
       navigate("/");
     } catch (err) {
       setError(err.message);
