@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
 
   const { data, error } = await supabase
     .from("notes")
-    .insert([{ title, content , user_id: user.id}]);
+    .insert([{ title, content}]);
 
   if (error) return res.status(400).json({ error: error.message });
 
