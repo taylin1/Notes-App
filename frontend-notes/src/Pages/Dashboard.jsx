@@ -8,48 +8,40 @@ function Dashboard() {
   const [error, setError] = useState("");
 
   // Add notes to the dashboard
+  
+    const handleAddNote = async () => {
+  if (!title || !content) {
+    setError("Please fill in both fields");
+    return;
+  }
 
-  const handleAddNote = async () => {
-    if (!title || !content) {
-      setError("Please fill in both fields");
-      return;
+  try {
+    const response = await fetch(`${API_URL}/api/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, content }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to add note");
     }
 
-    // API to fetch notes
-    try {
-      const response = await fetch(`${API_URL}/api/notes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content }),
-      });
+    const data = await response.json();
 
-      await response.json();
+    setNotes((prev) => [...prev, data]);
 
-      setNotes((previousNotes) => {
-        return [
-          ...previousNotes,
-          {
-            title: title,
-            content: content,
-          },
-        ];
-      });
+    setTitle("");
+    setContent("");
+    setError("");
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
-      // Reset input fields after the note has been added
-      setTitle("");
-      setContent("");
-
-      // Clear any existing error messages
-      setError("");
-
-      // Catch any errors if there is
-    } catch (err) {
-      setError("Failed to add note:" + err);
-    }
-  };
-
+  
   return (
     //Dashboard
   
