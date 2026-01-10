@@ -8,7 +8,7 @@ function Dashboard() {
   const [error, setError] = useState("");
 
   // Add notes to the dashboard
-  
+
     const handleAddNote = async () => {
   if (!title || !content) {
     setError("Please fill in both fields");
@@ -29,9 +29,9 @@ function Dashboard() {
       throw new Error(errorData.error || "Failed to add note");
     }
 
-    const data = await response.json();
+    await response.json();
 
-    setNotes((prev) => [...prev, data]);
+    setNotes((prev) => [...prev, { title, content }]);
 
     setTitle("");
     setContent("");
