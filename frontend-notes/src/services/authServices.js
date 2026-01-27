@@ -1,6 +1,7 @@
 import API_URL from "./api";
 
 //Api functions
+//Client requests
 
 export const signupUser = async (email, password) => {
   const response = await fetch(`${API_URL}/api/auth/signup`, {
