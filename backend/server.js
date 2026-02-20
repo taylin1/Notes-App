@@ -1,4 +1,4 @@
-const app = require("./app");
+const app = require("./app"); //importing the file
 
 const PORT =  5000;
 
