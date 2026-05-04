@@ -11,8 +11,7 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
-    try {
+      try {
       const data = await loginUser(email, password);
 
       // store logged-in user

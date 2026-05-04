@@ -5,8 +5,8 @@ require("dotenv").config();
 
 const app = express();
 
-const notesRoutes = require("./routes/notesRoutes");
-const authRoutes = require("./routes/authRoutes");
+const notesRoutes = require("./routes/notesRoutes"); //importing route
+const authRoutes = require("./routes/authRoutes"); //importing route
 
 // Middlewares
 app.use(cors());

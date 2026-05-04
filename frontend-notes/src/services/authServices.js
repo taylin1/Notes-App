@@ -1,7 +1,6 @@
 import API_URL from "./api";
 
-//Api functions
-//Client requests
+//This is for the LoginPage and SignUpPage once the buttons are pressed these functions ae called
 
 export const signupUser = async (email, password) => {
   const response = await fetch(`${API_URL}/api/auth/signup`, {

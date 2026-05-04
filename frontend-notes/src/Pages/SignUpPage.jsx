@@ -11,8 +11,7 @@ function SignupPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
-
-    try {
+   try {
       // create user in database (Supabase Auth)
       await signupUser(email, password);
 
