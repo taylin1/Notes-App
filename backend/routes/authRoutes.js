@@ -4,8 +4,10 @@ const router = express.Router();
 const supabaseAnon = require("../supabase/supabaseAnon");
 const supabaseAdmin = require("../supabase/supabaseAdmin");
 
+
 /* LOGIN */
 router.post("/login", async (req, res) => {
+  console.log("req.body:", req.body); // add this
   const { email, password } = req.body;
 
   const { data, error } = await supabaseAnon.auth.signInWithPassword({

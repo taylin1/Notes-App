@@ -7,10 +7,12 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] =useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true); //start spinner
    try {
       // create user in database (Supabase Auth)
       await signupUser(email, password);
@@ -19,6 +21,9 @@ function SignupPage() {
       navigate("/");
     } catch (err) {
       setError(err.message);
+    }
+    finally{
+     setLoading(false);
     }
   };
 
@@ -65,9 +70,17 @@ function SignupPage() {
 
           <button
             type="submit"
-            className="bg-indigo-500 hover:bg-indigo-600 rounded-lg p-2 text-white font-semibold"
+            disabled={loading}
+            className="bg-indigo-500 hover:bg-indigo-600 rounded-lg p-2 text-white font-semibold flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Sign Up
+            {loading ? (
+    <>
+      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      Signing up...
+    </>
+  ) : (
+    "Sign Up"
+  )}
           </button>
 
           <p className="mt-6 text-white text-sm text-center">
