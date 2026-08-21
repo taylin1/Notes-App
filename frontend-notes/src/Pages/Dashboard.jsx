@@ -1,11 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API_URL from "../services/api.js";
+import { supabase } from "../supabaseClient";
 
 function Dashboard() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   // Add notes to the dashboard
 
@@ -16,7 +25,7 @@ function Dashboard() {
   }
 
   try {
-    const response = await fetch(`${API_URL}/api/notes`, {
+    const response = await fetch(`${API_URL}/api/notes`, {  
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +61,15 @@ function Dashboard() {
     //Dashboard
   
     <div className="bg-slate-900 h-screen p-6 text-white">
-      <h1 className="text-2xl font-bold mb-4">Noti Dashboard</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Noti Dashboard</h1>
+        <button
+          onClick={handleLogout}
+          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="mb-4">
         <input

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authServices";
+import { supabase } from "../supabaseClient";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,6 +14,12 @@ function LoginPage() {
     setError("");
       try {
       const data = await loginUser(email, password);
+
+      // Sync session with frontend Supabase client so ProtectedRoute works
+      await supabase.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
 
       // store logged-in user
       localStorage.setItem("user", JSON.stringify(data.user));
