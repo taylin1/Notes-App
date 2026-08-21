@@ -60,9 +60,9 @@ function Dashboard() {
   return (
     //Dashboard
   
-    <div className="bg-slate-900 h-screen p-6 text-white">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Noti Dashboard</h1>
+    <div className="bg-slate-900 h-screen p-4 sm:p-6 text-white">
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-2">
+        <h1 className="text-xl sm:text-2xl font-bold">Noti Dashboard</h1>
         <button
           onClick={handleLogout}
           className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
