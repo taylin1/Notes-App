@@ -61,11 +61,11 @@ function Dashboard() {
     //Dashboard
   
     <div className="bg-slate-900 min-h-screen p-4 sm:p-6 text-white overflow-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+      <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl sm:text-2xl font-bold">Noti Dashboard</h1>
         <button
           onClick={handleLogout}
-          className="hidden sm:block bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
+          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
         >
           Logout
         </button>
@@ -92,12 +92,6 @@ function Dashboard() {
             className="bg-indigo-600 px-4 py-2 rounded"
           >
             Add Note
-          </button>
-          <button
-            onClick={handleLogout}
-            className="sm:hidden bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
-          >
-            Logout
           </button>
         </div>
 
