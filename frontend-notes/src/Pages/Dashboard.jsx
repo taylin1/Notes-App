@@ -60,8 +60,8 @@ function Dashboard() {
   return (
     //Dashboard
   
-    <div className="bg-slate-900 h-screen p-4 sm:p-6 text-white">
-      <div className="flex flex-wrap justify-between items-center mb-4 gap-2">
+    <div className="bg-slate-900 min-h-screen p-4 sm:p-6 text-white overflow-auto">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <h1 className="text-xl sm:text-2xl font-bold">Noti Dashboard</h1>
         <button
           onClick={handleLogout}
@@ -80,7 +80,7 @@ function Dashboard() {
         />
 
         <textarea
-          className="w-full p-2 border border-white text-white h-80 bg-gray-800"
+          className="w-full p-2 border border-white text-white h-40 sm:h-60 md:h-80 bg-gray-800"
           placeholder="Write your note..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
