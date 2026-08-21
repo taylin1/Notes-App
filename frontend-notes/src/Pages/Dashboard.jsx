@@ -65,7 +65,7 @@ function Dashboard() {
         <h1 className="text-xl sm:text-2xl font-bold">Noti Dashboard</h1>
         <button
           onClick={handleLogout}
-          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
+          className="hidden sm:block bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
         >
           Logout
         </button>
@@ -86,12 +86,20 @@ function Dashboard() {
           onChange={(e) => setContent(e.target.value)}
         />
 
-        <button
-          onClick={handleAddNote}
-          className="mt-2 bg-indigo-600 px-4 py-2 rounded"
-        >
-          Add Note
-        </button>
+        <div className="flex items-center gap-4 mt-2">
+          <button
+            onClick={handleAddNote}
+            className="bg-indigo-600 px-4 py-2 rounded"
+          >
+            Add Note
+          </button>
+          <button
+            onClick={handleLogout}
+            className="sm:hidden bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
+          >
+            Logout
+          </button>
+        </div>
 
         {error && <p className="text-red-400 mt-2">{error}</p>}
       </div>
