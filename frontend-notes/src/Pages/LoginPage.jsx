@@ -6,13 +6,15 @@ import { supabase } from "../supabaseClient";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-      try {
+    setLoading(true);
+    try {
       const data = await loginUser(email, password);
 
       // Sync session with frontend Supabase client so ProtectedRoute works
@@ -28,6 +30,8 @@ function LoginPage() {
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,9 +78,10 @@ function LoginPage() {
 
           <button
             type="submit"
-            className="bg-indigo-500 hover:bg-indigo-600 rounded-lg p-2 text-white font-semibold"
+            disabled={loading} // Once setLoading is true, the button will be disabled because boolean is stored in loading 
+            className="bg-indigo-500 hover:bg-indigo-600 rounded-lg p-2 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <p className="mt-6 text-white text-sm text-center">

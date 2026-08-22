@@ -6,14 +6,18 @@ import { supabase } from "../supabaseClient";
 function Dashboard() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Logout action 
   const handleLogout = async () => {
+    setLoading(true);
     await supabase.auth.signOut();
     localStorage.removeItem("user");
     navigate("/");
+    setLoading(false);
   };
 
   // Add notes to the dashboard
@@ -65,9 +69,9 @@ function Dashboard() {
         <h1 className="text-xl sm:text-2xl font-bold">Noti Dashboard</h1>
         <button
           onClick={handleLogout}
-          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold"
-        >
-          Logout
+          disabled={loading}
+          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded text-white font-semibold">
+         {loading ? "Logging out..." : "Logout"}
         </button>
       </div>
 
@@ -99,6 +103,7 @@ function Dashboard() {
       </div>
 
       <div>
+        {/* Display notes */}
         <h2 className="text-xl mb-2 mt-10">My Notes</h2>
 
         {notes.length === 0 && <p>No notes yet</p>}
